@@ -3,4 +3,9 @@
     <string name="query_provinces_title">中国</string>
     <string name="loading">正在加载……</string>
     <string name="load_failed">加载失败</string>
+    <string name="forecast">预报</string>
+    <string name="air_quality">空气质量</string>
+    <string name="aqi_label">AQI指数</string>
+    <string name="pm25_label">PM2.5指数</string>
+    <string name="suggestion">生活建议</string>
 </resources>
