@@ -8,4 +8,8 @@
     <string name="aqi_label">AQI指数</string>
     <string name="pm25_label">PM2.5指数</string>
     <string name="suggestion">生活建议</string>
+    <string name="fetch_forecast_info_failed">获取天气信息失败</string>
+    <string name="comfort">舒适度：</string>
+    <string name="car_wash">洗车指数：</string>
+    <string name="sport">运动建议：</string>
 </resources>
