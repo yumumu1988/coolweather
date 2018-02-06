@@ -9,6 +9,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "default"
+    }
+    productFlavors {
+        qihoo {
+            applicationId "com.coolweather.android.qihoo"
+            dimension "default"
+        }
+        baidu {
+            applicationId "com.coolweather.android.baidu"
+            dimension "default"
+        }
     }
     signingConfigs {
         config {

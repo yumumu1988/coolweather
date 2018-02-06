@@ -67,6 +67,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;
 
+    private String globalWeatherId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,24 +96,24 @@ public class WeatherActivity extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        final String weatherId;
+//        final String weatherId;
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = sharedPreferences.getString("weather", null);
         if (weatherString != null){
             Weather weather = Utility.handleWeatherResponse(weatherString);
-            weatherId = weather.basic.weatherId;
+            globalWeatherId = weather.basic.weatherId;
             showWeatherInfo(weather);
         } else {
-            weatherId = getIntent().getStringExtra("weather_id");
+            globalWeatherId = getIntent().getStringExtra("weather_id");
             weatherLayout.setVisibility(View.INVISIBLE);
-            requestWeather(weatherId);
+            requestWeather(globalWeatherId);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestWeather(weatherId);
+                requestWeather(globalWeatherId);
             }
         });
 
@@ -143,7 +145,6 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String bingPic = response.body().string();
-                Log.d("loadBingPic", bingPic);
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                 editor.putString("bing_pic", bingPic);
                 editor.apply();
@@ -159,6 +160,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     public void requestWeather(String weatherId) {
         String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=9c5ce5b8b8c242f9943d0fdf6f36ac1d";
+        globalWeatherId = weatherId;
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
